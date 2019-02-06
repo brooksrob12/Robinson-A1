@@ -16,17 +16,19 @@ function requestHandler(req, res)
     
     res.writeHead(200, {'Content-Type': 'text/html'});
     
-    if (query['cmd'] == 'add')
+    if (query['cmd'] == 'stats')
     {
       console.log("Handling a request");
       console.log(query);
       var sum = 0;
-      for (var i in query['num'])
-      {
-        sum = sum + parseInt(query['num'][i]);
-      }
+      var max = Math.max(query);
+      var min = Math.min(query);
       
-      res.write('<pre>'+sum+'</pre>');
+    for(var i = 0; i < query.length; i++) {
+    sum += query[i];
+    }
+      var avg = sum / query.length;
+      res.write('<pre>'+avg+'</pre>');
       res.end('');
     }
     else
